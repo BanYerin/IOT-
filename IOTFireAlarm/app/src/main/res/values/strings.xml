@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">IOTFireAlarm</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_check_field">CheckFieldActivity</string>
+    <string name="title_activity_report">ReportActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_show_record">ShowRecordActivity</string>
 </resources>

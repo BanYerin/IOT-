@@ -1,20 +1,20 @@
-/*
--작성자: 2017038023 반예린
--해당 소스파일 정보: 내가 구현한 기능에 대해 화면 이동 작동 확인을 위한 테스트용 임시 메인화면 및 메인메뉴 기능.
-                    나중에 통합할 때는 이 소스파일은 제거하고 배나영 팀원이 작성한 메인화면을 사용해야함.
--구현 완료된 기능: 홈 화면으로 이동, 신고하기 화면으로 이동, 어플 종료에 대한 기능.
--테스트 환경: SAMSUNG Galaxy S7(AVD), API 22
- */
-
 package com.example.iotfirealarm;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.net.Uri;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.telephony.SmsManager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+
 import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,27 +22,75 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
-    //홈 화면으로 이동 메소드
-    public void onClickHome(View v) {
-        goHome();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
-    //신고하기 화면으로 이동하는 메소드
-    public void onClickReport(View v) {
-        Intent reportIntent = new Intent(this, ReportActivity.class);
-        startActivity(reportIntent);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
-    //어플 종료 메소드
-    public void onClickExit(View v) {
-        finish(); //현재 액티비티를 닫아 어플 종료
+    /*
+    메소드 이름 : onClickCheckField
+    메소드 기능 : 메인 페이지에서 현장을 확인하는 페이지로 이동한다.
+     */
+    public void onClickCheckField(View v){
+        Intent intent=new Intent(this, CheckFieldActivity.class);
+        startActivity(intent);
     }
 
-    void goHome(){
-        Intent homeIntent = new Intent(this, MainActivity.class);
-        startActivity(homeIntent);
+
+    //메인 페이지에서 화재 기록 조회 페이지로 이동한다
+    public void onClickShowRecord(View V){
+        Intent intent=new Intent(this, ShowRecordActivity.class);
+        startActivity(intent);
+    }
+
+    /*
+    메소드 이름 : onClickSetting
+    메소드 기능 : 메인 페이지에서 환경설정 페이지로 이동한다
+     */
+    public void onClickSetting(View v){
+
+        // 화면 이동
+        Intent intent=new Intent(this,SettingActivity.class);
+        startActivity(intent);
+
+    }
+
+    /*
+    메소드 이름 : onClickRecord
+    메소드 기능 : 메인 화면에서 신고 페이지로 이동한다
+     */
+    public void onClickReport(View v){
+        Intent intent=new Intent(this, ReportActivity.class);
+        startActivity(intent);
+    }
+
+    /*
+    메소드 이름 : onClickRecord
+    메소드 기능 : 어플을 종료한다
+     */
+    public void onClickClosed(View v){
+        ActivityCompat.finishAffinity(this);
     }
 
 
