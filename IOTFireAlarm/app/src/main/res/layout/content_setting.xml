@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="My Address" />
+            android:text="사용자 주소를 입력하세요." />
 
         <TextView
             android:id="@+id/textView4"
@@ -42,24 +42,24 @@
             android:id="@+id/adminPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Phone Number"
             android:ems="10"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:text="신고할 관리자 연락처를 입력하세요." />
 
         <Button
             android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="60dp"
-            android:onClick="registerInfo"
+            android:onClick="OnclickRegister"
             android:text="등록" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/confirmTable"
+        android:id="@+id/existUserInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="현재 등록된 정보가 없습니다. 정보를 등록해주세요."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.122"
