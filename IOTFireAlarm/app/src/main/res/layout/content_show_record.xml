@@ -12,7 +12,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="감지기록조회"
+        android:text="화재 감지 기록"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.096"
@@ -21,20 +21,38 @@
         app:layout_constraintVertical_bias="0.051" />
 
     <ScrollView
-        android:layout_width="332dp"
-        android:layout_height="520dp"
+        android:id="@+id/FireRecordscrollView"
+        android:layout_width="309dp"
+        android:layout_height="365dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
+        android:background="#FFFFFF"
+
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarDefaultDelayBeforeFade="500000"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.148"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.496">
+        app:layout_constraintVertical_bias="0.461">
 
         <LinearLayout
+            android:id="@+id/fireRecordLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="#A9E2F3"
+
+                android:text="            감지시각                       온도값       가스값" />
+        </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -49,10 +49,10 @@ public class ReportActivity extends AppCompatActivity {
         }
     }
 
-    //관리자 신고 메소드
+    //관리자 신고 메소드: DB에 존재하는 사용자 정보 데이터를 이용하여 관리자에게 신고 메시지 전송
     public void onClickReportM(View v){
-        String tel="010-7455-3507"; //메시지를 전송할 임시 관리자 번호. 나중에 DB에서 받아와야함
-        String addr="충북 청주시 서원구 개신동 A번지 101호"; //임시 사용자 주소. 나중에 DB에서 받아와야함
+        String tel="010-1234-1234"; //메시지를 전송할 임시 관리자 번호. 임시 값으로 초기화
+        String addr="충북 청주시 서원구 개신동 A번지"; //사용자 주소. 임시 값으로 초기화.
         String msg="화재 발생!! 도와주세요!\n 화재 발생지:"+addr; //화재 신고 메시지 내용
 
         //DB관련 변수 선언
@@ -76,7 +76,7 @@ public class ReportActivity extends AppCompatActivity {
 
     }
 
-    //소방서 신고 메소드
+    //소방서 신고 메소드: DB에 존재하는 사용자 정보 데이터를 이용하여 소방서에 신고 메시지 전송
     public void onClickReportFS(View v) {
         String tel="119"; //메시지를 전송 소방서 번호
         String addr="충북 청주시 서원구 개신동 A번지 101호"; //임시 사용자 주소. 나중에 DB에서 받아와야함

@@ -1,5 +1,5 @@
 /*
--작성자: 2015023025 배나영, 2017038023 반예린
+-작성자: 2017038023 반예린(DB), 2015023025 배나영(UI)
 -해당 소스파일 정보: 사용자 정보 등록 및 수정에 대한 기능.
                     사용자 주소와 신고 연락처를 입력한 뒤 등록 버튼을 클릭하면 DB에 존재하는 기존 정보를 삭제하고 새로 입력한 정보를 삽입함.
 -구현 완료된 기능: 사용자 정보 등록 및 수정, 등록되어 있는 기존 사용자 정보 출력, DB 연동에 대한 기능.
@@ -61,7 +61,7 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-    //사용자 정보 출력 메소드
+    //사용자 정보 출력 메소드: DB에 존재하는 사용자 정보 데이터를 가져와 화면에 출력
     public void printUserInfo(){
         //사용자 주소 정보와 관리자 전화번호를 EditText형으로 받아옴
         EditText userAddrEditText=findViewById(R.id.userAddress);
@@ -84,7 +84,7 @@ public class SettingActivity extends AppCompatActivity {
             adminPhoneNumString=cursor.getString(1);
         }
 
-        //현재 DB에 존재하는 사용자 주소와 관리자 연락처를 각 에디트텍스트와 텍스트뷰에 출력
+        //현재 사용자 정보 DB에 존재하는 사용자 주소와 관리자 연락처를 각 에디트텍스트와 텍스트뷰에 출력
         userAddrEditText.setText(userAddrString);
         adminNumEditText.setText(adminPhoneNumString);
         existUserInfo.setText("<현재 등록되어 있는 정보>"+"\n-사용자 주소: "+userAddrString+"\n-신고 연락처: "+adminPhoneNumString);
