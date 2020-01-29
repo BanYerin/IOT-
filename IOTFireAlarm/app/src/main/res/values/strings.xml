@@ -5,4 +5,5 @@
     <string name="title_activity_report">ReportActivity</string>
     <string name="title_activity_setting">SettingActivity</string>
     <string name="title_activity_show_record">ShowRecordActivity</string>
+    <string name="title_activity_parsing_test">parsingTest</string>
 </resources>

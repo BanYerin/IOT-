@@ -1,8 +1,8 @@
 /*
 -작성자: 2017038023 반예린(UI, DB), 2015023025 배나영(UI)
--해당 소스파일 정보: 화재 감지 기록 조회에 대한 기능.
-                    DB에 존재하는 화재 감지 기록을 가져와 화면에 출력함.
--구현 완료된 기능: DB에 존재하는 화재 감지 기록 출력, DB 연동에 대한 기능.
+-해당 소스파일 정보: 화재감지 기록 조회에 대한 기능.
+                    DB에 존재하는 화재감지 기록을 가져와 화면에 출력함.
+-구현 완료된 기능: DB에 존재하는 화재감지 기록 출력, DB 연동에 대한 기능.
 -테스트 환경: SAMSUNG Galaxy S7(AVD), API 22
  */
 
@@ -40,7 +40,7 @@ public class ShowRecordActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mHelper=new DataSensingDBHelper(this);
-        printFireRecord(); //DB에 저장되어 있는 화재 감지 기록을 화면에 출력
+        printFireRecord(); //DB에 저장되어 있는 화재감지 기록을 화면에 출력
 
     }
 
@@ -74,9 +74,9 @@ public class ShowRecordActivity extends AppCompatActivity {
         }
     }
 
-    //화재 감지 기록 출력 메소드: DB에 존재하는 화재 감지 기록 데이터를 가져와 화면에 출력
+    //화재감지 기록 출력 메소드: DB에 존재하는 화재감지 기록 데이터를 가져와 화면에 출력
     public void printFireRecord(){
-        //화재 감지 기록 텍스트뷰의 부모 레이아웃
+        //화재감지 기록 텍스트뷰의 부모 레이아웃
         LinearLayout fireRecordLayout = (LinearLayout) findViewById(R.id.fireRecordLayout);
 
         //DB관련 변수 선언
@@ -95,12 +95,12 @@ public class ShowRecordActivity extends AppCompatActivity {
             gas=cursor.getFloat(2);
 
 
-            //현재 화재 감지 기록 DB에 존재하는 화재 감지 시각, 온도값, 가스값을 스크롤 텍스트뷰에 출력
-            //화재 감지 기록 텍스트뷰를 동적 생성
+            //현재 화재감지 기록 DB에 존재하는 화재감지 시각, 온도값, 가스값을 스크롤 텍스트뷰에 출력
+            //화재감지 기록 텍스트뷰를 동적 생성
             TextView DinamicView=new TextView(this);
             DinamicView.setText(detectTime+"             "+temper+"        "+gas+"\n");
 
-            //동적생성된 화재 감지 기록 텍스트뷰를 부모 레이아웃에 추가
+            //동적생성된 화재감지 기록 텍스트뷰를 부모 레이아웃에 추가
             fireRecordLayout.addView(DinamicView);
 
 

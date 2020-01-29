@@ -69,4 +69,5 @@
             android:text="종료" />
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
