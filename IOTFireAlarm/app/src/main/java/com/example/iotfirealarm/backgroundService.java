@@ -1,10 +1,11 @@
 /*
--작성자: 2017038023 반예린(백그라운드 서비스, 클라우드 서버로부터 데이터 수신, JSON 파싱, 화재여부 판단 기능), 2015023025 배나영(화재 푸시알림 기능)
--해당 소스파일 정보: 백그라운드 서비스, 클라우드 서버로 부터의 데이터 수신, JSON 파싱, 화재여부 판단, 화재 푸시알림에 대한 기능.
+-작성자: 2017038023 반예린(백그라운드 서비스, 클라우드 서버로부터 데이터 수신, JSON 파싱, 화재여부 판단, 화재감지 기록 저장 기능),
+        2015023025 배나영(화재 푸시알림 기능)
+-해당 소스파일 정보: 백그라운드 서비스, 클라우드 서버로 부터의 데이터 수신, JSON 파싱, 화재여부 판단, 화재감지 기록 저장, 화재 푸시알림에 대한 기능.
                     URL을 통해 클라우드 서버로부터 아두이노 센서 측정값 데이터를 JSON 형태로 가져와 파싱하여 필요한 데이터를 추출한 후
-                    추출한 온도값 및 가스값을 이용하여 화재여부를 판단하고 화재여부가 true이면 화재 푸시알림이 작동하는 기능을
-                    백그라운드 서비스에서 계속 유지하여 실행함.
--구현 완료된 기능: 백그라운드 서비스, 클라우드 서버로 부터의 데이터 수신, JSON 파싱, 화재여부 판단, 화재 푸시알림에 대한 기능.
+                    추출한 온도값 및 가스값을 이용하여 화재여부를 판단하고 화재여부가 true이면 화재감지 기록 저장 기능과 화재 푸시알림 기능이
+                    작동하도록 백그라운드 서비스에서 계속 유지하여 실행함.
+-구현 완료된 기능: 백그라운드 서비스, 클라우드 서버로 부터의 데이터 수신, JSON 파싱, 화재여부 판단, 화재감지 기록 저장, 화재 푸시알림에 대한 기능.
 -테스트 환경: SAMSUNG Galaxy S7(AVD), API 22
  */
 
@@ -15,6 +16,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -39,12 +41,19 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+
 public class backgroundService extends Service {
     boolean mQuit;
     static RequestQueue requestQueue;
     String json = ""; //json문자열
     float temp; //온도값
     float gas; //가스값
+    String detectTime; //화재가 감지된 시각
+    DataSensingDBHelper mHelper;
 
     public void onCreate() {
         super.onCreate();
@@ -52,6 +61,8 @@ public class backgroundService extends Service {
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
+
+        mHelper=new DataSensingDBHelper(this);
     }
 
     public void onDestroy(){
@@ -88,8 +99,11 @@ public class backgroundService extends Service {
         public void run(){
             while(true){
                 makeRequest(); //URL로부터 JSON데이터 가져와 파싱
-                if(fireDecision() == true){ //화재 판단 결과가 ture이면 화재알림 동작
-                    fireAlarm();
+                if(fireDecision() == true){ //화재 판단 결과가 ture이면
+                    fireAlarm(); //화재 푸시알림 동작
+                    recordFire(); //화재감지 기록 저장
+                    //ShowRecordActivity showRecordActivity = new ShowRecordActivity();
+                    //showRecordActivity.printFireRecord(); //DB에 존재하는 화재감지 기록 데이터를 가져와 화재기록 조회 화면의 출력물을 업데이트함
                 }
 
                 Message msg = new Message();
@@ -147,7 +161,7 @@ public class backgroundService extends Service {
         requestQueue.add(request);
     }
 
-    //파싱 후 파싱 결과값을 변수에 넣음
+    //JSON 데이터 파싱 메소드: JSON 데이터 파싱 후 파싱 결과값을 변수에 넣음
     public void dataParsing(String data){
         Gson gson = new Gson();
         SensingData gsonResult = gson.fromJson(data, SensingData.class);
@@ -164,6 +178,39 @@ public class backgroundService extends Service {
         }else{
             return false;
         }
+    }
+
+    //DB관리를 위한 도우미 클래스
+    class DataSensingDBHelper extends SQLiteOpenHelper{
+        public DataSensingDBHelper(Context context){
+            super(context, "DataSensing.db", null, 1);
+        }
+
+        public void onCreate(SQLiteDatabase db){
+            //화재감지 기록 DB 생성
+            db.execSQL("create table DataSensing(senNum integer primary key autoincrement, time text, temper real, gas real);");
+        }
+
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+            db.execSQL("drop table if exists DataSensing");
+            onCreate(db);
+        }
+    }
+
+    //화재감지 기록 저장 메소드: 화재 발생 당시의 날짜 및 시각, 온도값, 가스값 데이터를 DB에 저장함
+    public void recordFire(){
+        //DB관련 변수 선언
+        SQLiteDatabase db;
+        ContentValues row;
+        Cursor cursor;
+
+        db=mHelper.getWritableDatabase(); //쓰기 가능한 SQLite DB 인스턴스 생성
+        cursor=db.rawQuery("select time, temper, gas from DataSensing", null);
+
+        //화재 발생 당시 기준으로 현재 날짜 및 시각, 온도값, 가스값 데이터를 DB에 저장
+        db.execSQL("insert into DataSensing values(null, datetime('now','localtime'), "+temp+", "+gas+");");
+
+        mHelper.close();
     }
 
 
