@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">IOTFireAlarm</string>
+    <string name="app_name">우리집 화재 알리미</string>
+    <string name="action_settings">홈화면 바로가기</string>
+    <string name="title_activity_check_field">CheckFieldActivity</string>
+    <string name="title_activity_report">ReportActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_show_record">ShowRecordActivity</string>
+    <string name="title_activity_parsing_test">parsingTest</string>
 </resources>

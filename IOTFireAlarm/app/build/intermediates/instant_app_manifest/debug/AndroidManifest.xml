@@ -6,8 +6,20 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="15"
+        android:minSdkVersion="21"
         android:targetSdkVersion="29" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_MMS" />
+    <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -17,8 +29,33 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name="com.example.iotfirealarm.MainActivity" >
+        android:testOnly="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <service
+            android:name="com.example.iotfirealarm.backgroundService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name="com.example.iotfirealarm.ShowRecordActivity"
+            android:label="@string/title_activity_show_record"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.iotfirealarm.SettingActivity"
+            android:label="@string/title_activity_setting"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.iotfirealarm.ReportActivity"
+            android:label="@string/title_activity_report"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.iotfirealarm.CheckFieldActivity"
+            android:label="@string/title_activity_check_field"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.iotfirealarm.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
