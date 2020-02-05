@@ -3,13 +3,14 @@
 -해당 소스파일 정보: 사용자 정보 등록 및 수정에 대한 기능.
                     사용자 주소와 신고 연락처를 입력한 뒤 등록 버튼을 클릭하면 DB에 존재하는 기존 정보를 삭제하고 새로 입력한 정보를 삽입함.
 -구현 완료된 기능: 사용자 정보 등록 및 수정, 등록되어 있는 기존 사용자 정보 출력, DB 연동에 대한 기능.
--테스트 환경: SAMSUNG Galaxy S7(AVD), API 22
+-테스트 환경: Nexus 5X(AVD), API 29
  */
 
 package com.example.iotfirealarm;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -22,6 +23,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -43,6 +46,23 @@ public class SettingActivity extends AppCompatActivity {
         mHelper=new UserInfoDBHelper(this);
         printUserInfo(); //기존에 등록되어 있는 사용자 정보를 화면에 출력
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.setting_toolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        if(item.getItemId()==R.id.homeButton){
+            Intent intent=new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //DB관리를 위한 도우미 클래스

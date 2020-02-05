@@ -3,7 +3,7 @@
 -해당 소스파일 정보: 화재감지 기록 조회에 대한 기능.
                     DB에 존재하는 화재감지 기록을 가져와 최근 날짜순으로 화면에 출력함.
 -구현 완료된 기능: DB에 존재하는 화재감지 기록 출력, DB 연동, 새로고침에 대한 기능.
--테스트 환경: SAMSUNG Galaxy S7(AVD), API 22
+-테스트 환경: Nexus 5X(AVD), API 29
  */
 
 package com.example.iotfirealarm;
@@ -23,6 +23,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,6 +45,23 @@ public class ShowRecordActivity extends AppCompatActivity {
         mHelper=new DataSensingDBHelper(this);
         printFireRecord(); //DB에 저장되어 있는 화재감지 기록을 화면에 출력
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.showrecord_toolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        if(item.getItemId()==R.id.homeButton){
+            Intent intent=new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //DB관리를 위한 도우미 클래스

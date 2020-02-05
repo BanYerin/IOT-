@@ -1,17 +1,20 @@
 /*
 -작성자: 2017038023 반예린
--해당 소스파일 정보: 화재 신고하기 화면 및 화재 신고에 대한 기능.
+-해당 소스파일 정보: 화재 신고하기 화면 및 화재 신고, 위험 권한 부여 요청에 대한 기능.
                     신고 버튼을 클릭하면 DB에 저장된 신고 연락처와 사용자 주소 정보를 이용하여 화재 신고 메시지를 자동으로 전송.
--구현 완료된 기능: 관리자에게 신고, 소방서로 신고, 메시지 전송, 홈 화면으로 이동, DB 연동에 대한 기능.
--테스트 환경: SAMSUNG Galaxy S7(AVD), API 22
+-구현 완료된 기능: 관리자에게 신고, 소방서로 신고, 메시지 전송, 홈 화면으로 이동, DB 연동, 위험 권한 부여 요청에 대한 기능.
+-테스트 환경: Nexus 5X(AVD), API 29
  */
 
 package com.example.iotfirealarm;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,7 +24,17 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
 
-public class ReportActivity extends AppCompatActivity {
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import com.pedro.library.AutoPermissions;
+import com.pedro.library.AutoPermissionsListener;
+
+import java.util.ArrayList;
+
+public class ReportActivity extends AppCompatActivity implements AutoPermissionsListener {
     UserInfoDBHelper mHelper;
 
     @Override
@@ -30,7 +43,32 @@ public class ReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_report);
 
         mHelper=new UserInfoDBHelper(this);
+
+        //위험 권한 자동부여 요청
+        AutoPermissions.Companion.loadAllPermissions(this,101);
     }
+
+    @Override
+    public void onDenied(int i, String[] strings) {
+        Toast.makeText(this,"permissions denied : "+strings.length,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onGranted(int i, String[] strings) {
+        Toast.makeText(this,"permissions granted : "+strings.length,Toast.LENGTH_LONG).show();
+    }
+
+    //위험 권한 부여에 대한 응답 처리
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        AutoPermissions.Companion.parsePermissions(this,requestCode,permissions,this);
+
+    }
+
+
+
+
 
     //DB관리를 위한 도우미 클래스
     class UserInfoDBHelper extends SQLiteOpenHelper{
@@ -51,8 +89,8 @@ public class ReportActivity extends AppCompatActivity {
 
     //관리자 신고 메소드: DB에 존재하는 사용자 정보 데이터를 이용하여 관리자에게 신고 메시지 전송
     public void onClickReportM(View v){
-        String tel="010-1234-1234"; //메시지를 전송할 임시 관리자 번호. 임시 값으로 초기화
-        String addr="충북 청주시 서원구 개신동 A번지"; //사용자 주소. 임시 값으로 초기화.
+        String tel=""; //메시지를 전송할 임시 관리자 번호. 임시 값으로 초기화
+        String addr=""; //사용자 주소. 임시 값으로 초기화.
         String msg="화재 발생!! 도와주세요!\n 화재 발생지:"+addr; //화재 신고 메시지 내용
 
         //DB관련 변수 선언
@@ -72,14 +110,25 @@ public class ReportActivity extends AppCompatActivity {
 
         mHelper.close();
 
-        sendSMS(tel, msg); //화재 신고 메시지 전송
+        if(tel.length()==0 || addr.length()==0){//관리자 연락처가 없거나 사용자 주소가 설정되어 있지 않은 경우 알림창 띄움
+            new AlertDialog.Builder(this)
+                    .setTitle("알림")
+                    .setMessage("관리자 연락처 또는 사용자 주소가 설정 되어있지 않음!\n정보 설정 후 다시 시도하세요!")
+                    .setIcon(R.drawable.ic_launcher_foreground)
+                    .setPositiveButton("닫기", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {}
+                    }).show();
+        }else{//관리자 연락처가 없거나 사용자 주소가 설정되어 있는 경우 해당 정보로 신고 메시지 전송
+            sendSMS(tel, msg); //화재 신고 메시지 전송
+        }
 
     }
 
     //소방서 신고 메소드: DB에 존재하는 사용자 정보 데이터를 이용하여 소방서에 신고 메시지 전송
     public void onClickReportFS(View v) {
         String tel="119"; //메시지를 전송 소방서 번호
-        String addr="충북 청주시 서원구 개신동 A번지 101호"; //임시 사용자 주소. 나중에 DB에서 받아와야함
+        String addr=""; //임시 사용자 주소. 나중에 DB에서 받아와야함
         String msg="화재 발생!! 도와주세요!\n 화재 발생지:"+addr; //화재 신고 메시지 내용
 
         //DB관련 변수 선언
@@ -98,7 +147,19 @@ public class ReportActivity extends AppCompatActivity {
 
         mHelper.close();
 
-        sendSMS(tel, msg); //화재 신고 메시지 전송
+        if(tel.length()==0 || addr.length()==0){//사용자 주소가 설정되어 있지 않은 경우 알림창 띄움
+            new AlertDialog.Builder(this)
+                    .setTitle("알림")
+                    .setMessage("사용자 주소가 설정 되어있지 않음!\n정보 설정 후 다시 시도하세요!")
+                    .setIcon(R.drawable.ic_launcher_foreground)
+                    .setPositiveButton("닫기", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {}
+                    }).show();
+        }else{//사용자 주소가 설정되어 있는 경우 해당 정보로 신고 메시지 전송
+            sendSMS(tel, msg); //화재 신고 메시지 전송
+
+        }
 
     }
 
@@ -126,31 +187,4 @@ public class ReportActivity extends AppCompatActivity {
         startActivity(homeIntent);
     }
 
-//    /**
-//     * 사용자가 권한을 허용했는지 거부했는지 체크
-//     * reference : http://ande226.tistory.com/136
-//     * @param requestCode 1000번
-//     * @param permissions 개발자가 요청한 권한들
-//     * @param grantResults 권한에 대한 응답들
-//     * permissions와 grantResults는 인덱스 별로 매칭된다.
-//     */
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode,
-//                                           @NonNull String[] permissions,
-//                                           @NonNull int[] grantResults) {
-//        if (requestCode == 1000) {
-//
-//    /* 요청한 권한을 사용자가 "허용"했다면 인텐트를 띄워라
-//    내가 요청한 게 하나밖에 없기 때문에. 원래 같으면 for문을 돈다.*/
-//            if ( grantResults.length > 0 &&
-//                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                if (ActivityCompat.checkSelfPermission( this, Manifest.permission.CALL_PHONE) !=
-//                        PackageManager.PERMISSION_GRANTED) {
-//                    Uri n = Uri.parse("tel: " + etNumber.getText());
-//                    startActivity(new Intent(Intent.ACTION_CALL, n));
-//                }
-//            } else {
-//                Toast.makeText(MainActivity.this, "권한 요청을 거부했습니다.", Toast.LENGTH_SHORT).show();
-//            }
-//
 }

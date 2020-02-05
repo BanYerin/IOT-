@@ -2,17 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.iotfirealarm">
 
-    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.SEND_SMS_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_MMS" />
     <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -21,10 +19,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".ReportActivity"
+            android:label="@string/title_activity_report"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <service
             android:name=".backgroundService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".ShowRecordActivity"
@@ -33,10 +36,6 @@
         <activity
             android:name=".SettingActivity"
             android:label="@string/title_activity_setting"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ReportActivity"
-            android:label="@string/title_activity_report"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CheckFieldActivity"

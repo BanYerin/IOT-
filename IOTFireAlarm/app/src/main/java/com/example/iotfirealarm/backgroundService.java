@@ -6,7 +6,7 @@
                     추출한 온도값 및 가스값을 이용하여 화재여부를 판단하고 화재여부가 true이면 화재감지 기록 저장 기능과 화재 푸시알림 기능이
                     작동하도록 백그라운드 서비스에서 계속 유지하여 실행함.
 -구현 완료된 기능: 백그라운드 서비스, 클라우드 서버로 부터의 데이터 수신, JSON 파싱, 화재여부 판단, 화재감지 기록 저장, 화재 푸시알림에 대한 기능.
--테스트 환경: SAMSUNG Galaxy S7(AVD), API 22
+-테스트 환경: Nexus 5X(AVD), API 29
  */
 
 package com.example.iotfirealarm;
@@ -110,7 +110,7 @@ public class backgroundService extends Service {
                 msg.what = 0;
                 msg.obj = temp +" / "+ gas;
                 mHandler.sendMessage(msg);
-                try{Thread.sleep(5000);}catch(Exception e){;} //스레드를 5초에 한번씩 실행하도록 설정
+                try{Thread.sleep(16000);}catch(Exception e){;} //스레드를 16초에 한번씩 실행하도록 설정
             }
         }
     }
