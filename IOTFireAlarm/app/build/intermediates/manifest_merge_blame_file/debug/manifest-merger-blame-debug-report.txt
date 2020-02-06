@@ -44,84 +44,85 @@
 21-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:15:5-67
 21-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:15:22-64
 22
-23    <application
-23-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:17:5-56:19
-24        android:allowBackup="true"
-24-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:18:9-35
-25        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-25-->[androidx.core:core:1.1.0] C:\Android_Avd_Gradle\.gradle\caches\transforms-2\files-2.1\e9dab9c67c1ee3668e0bbf86c6d8cbd8\core-1.1.0\AndroidManifest.xml:24:18-86
-26        android:debuggable="true"
-27        android:icon="@mipmap/ic_launcher"
-27-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:19:9-43
-28        android:label="@string/app_name"
-28-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:20:9-41
-29        android:roundIcon="@mipmap/ic_launcher_round"
-29-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:21:9-54
-30        android:supportsRtl="true"
-30-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:22:9-35
-31        android:testOnly="true"
-32        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
-32-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:23:9-69
-33        <service
-33-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:25:9-28:39
-34            android:name="com.example.iotfirealarm.backgroundService"
-34-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:26:13-46
-35            android:enabled="true"
-35-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:27:13-35
-36            android:exported="true" />
-36-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:28:13-36
-37
-38        <activity
-38-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:30:9-33:59
-39            android:name="com.example.iotfirealarm.ShowRecordActivity"
-39-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:31:13-47
-40            android:label="@string/title_activity_show_record"
-40-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:32:13-63
-41            android:theme="@style/AppTheme.NoActionBar" />
-41-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:33:13-56
-42        <activity
-42-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:34:9-37:59
-43            android:name="com.example.iotfirealarm.SettingActivity"
-43-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:35:13-44
-44            android:label="@string/title_activity_setting"
-44-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:36:13-59
-45            android:theme="@style/AppTheme.NoActionBar" />
-45-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:37:13-56
-46        <activity
-46-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:38:9-41:59
-47            android:name="com.example.iotfirealarm.ReportActivity"
-47-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:39:13-43
-48            android:label="@string/title_activity_report"
-48-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:40:13-58
-49            android:theme="@style/AppTheme.NoActionBar" />
-49-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:41:13-56
-50        <activity
-50-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:42:9-45:59
-51            android:name="com.example.iotfirealarm.CheckFieldActivity"
-51-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:43:13-47
-52            android:label="@string/title_activity_check_field"
-52-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:44:13-63
-53            android:theme="@style/AppTheme.NoActionBar" />
-53-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:45:13-56
-54        <activity
-54-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:46:9-55:20
-55            android:name="com.example.iotfirealarm.MainActivity"
-55-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:47:13-41
-56            android:label="@string/app_name"
-56-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:48:13-45
-57            android:theme="@style/AppTheme.NoActionBar" >
-57-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:49:13-56
-58            <intent-filter>
-58-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:50:13-54:29
-59                <action android:name="android.intent.action.MAIN" />
-59-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:51:17-69
-59-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:51:25-66
-60
-61                <category android:name="android.intent.category.LAUNCHER" />
-61-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:53:17-77
-61-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:53:27-74
-62            </intent-filter>
-63        </activity>
-64    </application>
-65
-66</manifest>
+23    <!-- 상단 바 알림 퍼미션 -->
+24    <application
+24-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:20:5-59:19
+25        android:allowBackup="true"
+25-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:21:9-35
+26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+26-->[androidx.core:core:1.1.0] C:\Android_Avd_Gradle\.gradle\caches\transforms-2\files-2.1\e9dab9c67c1ee3668e0bbf86c6d8cbd8\core-1.1.0\AndroidManifest.xml:24:18-86
+27        android:debuggable="true"
+28        android:icon="@mipmap/ic_launcher"
+28-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:22:9-43
+29        android:label="@string/app_name"
+29-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:23:9-41
+30        android:roundIcon="@mipmap/ic_launcher_round"
+30-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:24:9-54
+31        android:supportsRtl="true"
+31-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:25:9-35
+32        android:testOnly="true"
+33        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
+33-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:26:9-69
+34        <service
+34-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:28:9-31:39
+35            android:name="com.example.iotfirealarm.backgroundService"
+35-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:29:13-46
+36            android:enabled="true"
+36-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:30:13-35
+37            android:exported="true" />
+37-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:31:13-36
+38
+39        <activity
+39-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:33:9-36:59
+40            android:name="com.example.iotfirealarm.ShowRecordActivity"
+40-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:34:13-47
+41            android:label="@string/title_activity_show_record"
+41-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:35:13-63
+42            android:theme="@style/AppTheme.NoActionBar" />
+42-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:36:13-56
+43        <activity
+43-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:37:9-40:59
+44            android:name="com.example.iotfirealarm.SettingActivity"
+44-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:38:13-44
+45            android:label="@string/title_activity_setting"
+45-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:39:13-59
+46            android:theme="@style/AppTheme.NoActionBar" />
+46-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:40:13-56
+47        <activity
+47-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:41:9-44:59
+48            android:name="com.example.iotfirealarm.ReportActivity"
+48-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:42:13-43
+49            android:label="@string/title_activity_report"
+49-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:43:13-58
+50            android:theme="@style/AppTheme.NoActionBar" />
+50-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:44:13-56
+51        <activity
+51-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:45:9-48:59
+52            android:name="com.example.iotfirealarm.CheckFieldActivity"
+52-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:46:13-47
+53            android:label="@string/title_activity_check_field"
+53-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:47:13-63
+54            android:theme="@style/AppTheme.NoActionBar" />
+54-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:48:13-56
+55        <activity
+55-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:49:9-58:20
+56            android:name="com.example.iotfirealarm.MainActivity"
+56-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:50:13-41
+57            android:label="@string/app_name"
+57-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:51:13-45
+58            android:theme="@style/AppTheme.NoActionBar" >
+58-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:52:13-56
+59            <intent-filter>
+59-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:53:13-57:29
+60                <action android:name="android.intent.action.MAIN" />
+60-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:54:17-69
+60-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:54:25-66
+61
+62                <category android:name="android.intent.category.LAUNCHER" />
+62-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:56:17-77
+62-->C:\Users\qoskd\AndroidStudioProjects\IOTFireAlarm\app\src\main\AndroidManifest.xml:56:27-74
+63            </intent-filter>
+64        </activity>
+65    </application>
+66
+67</manifest>
