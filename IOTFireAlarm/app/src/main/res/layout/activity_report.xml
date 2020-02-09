@@ -22,5 +22,4 @@
 
     <include layout="@layout/content_report" />
 
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

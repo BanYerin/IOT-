@@ -77,7 +77,7 @@ public class ReportActivity extends AppCompatActivity implements AutoPermissions
         }
 
         public void onCreate(SQLiteDatabase db){
-            db.execSQL("create table UserInfo(infoNum integer primary key autoincrement, addr text, tel text);");
+            db.execSQL("create table UserInfo(infoNum integer primary key autoincrement, addr text, tel text, ip text);");
             //db.execSQL("insert into UserInfo values(null, '충북 청주시 서원구 충대로1 충북대학교', '010-1111-1111');"); //테스트용으로 삽입한 레코드
         }
 
@@ -110,7 +110,7 @@ public class ReportActivity extends AppCompatActivity implements AutoPermissions
 
         mHelper.close();
 
-        if(tel.length()==0 || addr.length()==0){//관리자 연락처가 없거나 사용자 주소가 설정되어 있지 않은 경우 알림창 띄움
+        if(tel.length()==0 || addr.length()==0 || tel==null || addr==null){//관리자 연락처가 없거나 사용자 주소가 설정되어 있지 않은 경우 알림창 띄움
             new AlertDialog.Builder(this)
                     .setTitle("알림")
                     .setMessage("관리자 연락처 또는 사용자 주소가 설정 되어있지 않음!\n정보 설정 후 다시 시도하세요!")
@@ -147,7 +147,7 @@ public class ReportActivity extends AppCompatActivity implements AutoPermissions
 
         mHelper.close();
 
-        if(tel.length()==0 || addr.length()==0){//사용자 주소가 설정되어 있지 않은 경우 알림창 띄움
+        if(addr.length()==0 || addr==null){//사용자 주소가 설정되어 있지 않은 경우 알림창 띄움
             new AlertDialog.Builder(this)
                     .setTitle("알림")
                     .setMessage("사용자 주소가 설정 되어있지 않음!\n정보 설정 후 다시 시도하세요!")
