@@ -50,8 +50,10 @@ public class backgroundService extends Service {
     boolean mQuit;
     static RequestQueue requestQueue;
     String json = ""; //json문자열
-    float temp; //온도값
-    float gas; //가스값
+    float temp=0; //온도값
+    float gas=0; //가스값
+    int priorEntryId=0; //이전 데이터 엔트리id
+    int posteriorEntryId=0; //최근 데이터 엔트리id
     String detectTime; //화재가 감지된 시각
     DataSensingDBHelper mHelper;
 
@@ -98,19 +100,28 @@ public class backgroundService extends Service {
 
         public void run(){
             while(true){
-                makeRequest(); //URL로부터 JSON데이터 가져와 파싱
-                if(fireDecision() == true){ //화재 판단 결과가 ture이면
-                    fireAlarm(); //화재 푸시알림 동작
-                    recordFire(); //화재감지 기록 저장
-                    //ShowRecordActivity showRecordActivity = new ShowRecordActivity();
-                    //showRecordActivity.printFireRecord(); //DB에 존재하는 화재감지 기록 데이터를 가져와 화재기록 조회 화면의 출력물을 업데이트함
+                makeRequest(); //URL로부터 JSON데이터를 가져와 파싱
+
+                //마지막 데이터 엔트리id와 이전 데이터 엔트리id가 다르면 온도값 및 가스값 데이터가 새로운 값으로 변경된 것이므로 화재판단을 수행하고,
+                //수행 결과 화재여부가 true이면 화재알림 및 화재감지 기록 저장을 수행함
+                if(priorEntryId != posteriorEntryId){
+                    if(fireDecision() == true){ //화재 판단 결과가 ture이면
+                        fireAlarm(); //화재 푸시알림 동작
+                        recordFire(); //화재감지 기록 저장
+                        //ShowRecordActivity showRecordActivity = new ShowRecordActivity();
+                        //showRecordActivity.printFireRecord(); //DB에 존재하는 화재감지 기록 데이터를 가져와 화재기록 조회 화면의 출력물을 업데이트함
+                    }
                 }
+
+
+                priorEntryId = posteriorEntryId; //이전 데이터 엔트리id 값을 최근 데이터 엔트리id 값과 같도록 업데이트
+
 
                 Message msg = new Message();
                 msg.what = 0;
                 msg.obj = temp +" / "+ gas;
                 mHandler.sendMessage(msg);
-                try{Thread.sleep(16000);}catch(Exception e){;} //스레드를 16초에 한번씩 실행하도록 설정
+                try{Thread.sleep(5000);}catch(Exception e){;} //스레드를 5초에 한번씩 실행하도록 설정
             }
         }
     }
@@ -127,6 +138,7 @@ public class backgroundService extends Service {
       }
     };
 
+    //URL로부터 JSON데이터를 가져와 파싱하는 메소드
     public void makeRequest() {
         //아두이노 센서 측정값 데이터 중 가장 최근에 기록된 데이터 1개에 대한 정보를 JSON 형태로 보여주는 URL
         String url = "https://api.thingspeak.com/channels/953092/feeds.json?api_key=D9OG8OSWJEMRHFJY&results=1";
@@ -140,6 +152,7 @@ public class backgroundService extends Service {
                         json = response; //URL요청 결과 데이터를 json 변수에 넣음
                         Log.d("URL RS", json); //json변수에 들어간 값을 로그캣에 출력
                         dataParsing(json); //가져온 JSON데이터 파싱
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -165,9 +178,17 @@ public class backgroundService extends Service {
     public void dataParsing(String data){
         Gson gson = new Gson();
         SensingData gsonResult = gson.fromJson(data, SensingData.class);
-        temp = gsonResult.feeds.get(0).field1; //파싱 결과 온도값을 가져와 temp에 넣음
-        gas = gsonResult.feeds.get(0).field2; //파싱 결과 가스값을 가져와 gas에 넣음
-        Log.d("Json Parsing", gsonResult.feeds.get(0).field1+" / "+ gsonResult.feeds.get(0).field2);
+
+
+        //파싱 결과 마지막 데이터 엔트리id와 이전 데이터 엔트리id가 다르면 클라우드 서버에 새로운 데이터가 추가된 것이므로 파싱 결과값을 변수에 넣어 온도값 및 가스값 데이터를 업데이트함
+        posteriorEntryId = gsonResult.channel.last_entry_id; //파싱 결과 엔트리id를 가져와 posteriorEntryId에 넣음
+        if(priorEntryId != gsonResult.channel.last_entry_id){
+            temp = gsonResult.feeds.get(0).field1; //파싱 결과 온도값을 가져와 temp에 넣음
+            gas = gsonResult.feeds.get(0).field2; //파싱 결과 가스값을 가져와 gas에 넣음
+            detectTime = gsonResult.feeds.get(0).created_at; //파싱 결과 데이터 생성 시각을 가져와 detectTime에 넣음
+        }
+
+        Log.d("Json Parsing", gsonResult.channel.last_entry_id+ " / " +gsonResult.feeds.get(0).field1+" / "+ gsonResult.feeds.get(0).field2);
 
     }
 
@@ -235,7 +256,7 @@ public class backgroundService extends Service {
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationManager.createNotificationChannel(new NotificationChannel("default", "기본채널", NotificationManager.IMPORTANCE_DEFAULT));
+            notificationManager.createNotificationChannel(new NotificationChannel("default", "기본채널", NotificationManager.IMPORTANCE_HIGH));
         }
 
         notificationManager.notify(1, builder.build());

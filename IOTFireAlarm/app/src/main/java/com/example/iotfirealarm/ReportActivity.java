@@ -22,6 +22,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.Manifest;
@@ -49,13 +51,32 @@ public class ReportActivity extends AppCompatActivity implements AutoPermissions
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.report_toolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        if(item.getItemId()==R.id.homeButton){
+            Intent intent=new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onDenied(int i, String[] strings) {
-        Toast.makeText(this,"permissions denied : "+strings.length,Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"permissions denied : "+strings.length,Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"문자 전송 권한이 거부된 상태입니다.",Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onGranted(int i, String[] strings) {
-        Toast.makeText(this,"permissions granted : "+strings.length,Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"permissions granted : "+strings.length,Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"문자 전송 권한이 허용된 상태입니다.",Toast.LENGTH_LONG).show();
     }
 
     //위험 권한 부여에 대한 응답 처리
@@ -65,8 +86,6 @@ public class ReportActivity extends AppCompatActivity implements AutoPermissions
         AutoPermissions.Companion.parsePermissions(this,requestCode,permissions,this);
 
     }
-
-
 
 
 
