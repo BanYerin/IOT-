@@ -121,7 +121,7 @@ public class backgroundService extends Service {
                 msg.what = 0;
                 msg.obj = temp +" / "+ gas;
                 mHandler.sendMessage(msg);
-                try{Thread.sleep(5000);}catch(Exception e){;} //스레드를 5초에 한번씩 실행하도록 설정
+                try{Thread.sleep(10000);}catch(Exception e){;} //스레드를 5초에 한번씩 실행하도록 설정
             }
         }
     }
@@ -194,7 +194,7 @@ public class backgroundService extends Service {
 
     //화재여부 판단 메소드: 측정한 온도값과 가스값이 화재라고 판단되는 특정 경계값을 넘으면 화재여부는 true, 그렇지 않으면 화재여부는 false
     public boolean fireDecision(){ //현재 화재판단 기준 경계값은 테스트 간편화를 위해 임시값으로 작성하였음.
-        if(temp >= 15 && gas >= 55){
+        if(temp >= 35 && gas >= 140){
             return true;
         }else{
             return false;

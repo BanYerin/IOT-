@@ -11,6 +11,7 @@ package com.example.iotfirealarm;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -43,6 +44,9 @@ public class ReportActivity extends AppCompatActivity implements AutoPermissions
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         mHelper=new UserInfoDBHelper(this);
 

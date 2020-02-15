@@ -1,7 +1,7 @@
 /*
--작성자: 2017038023 반예린(DB, 백그라운드 서비스 관련 기능), 2015023025 배나영(UI, 화면 간 이동 기능)
--해당 소스파일 정보: 백그라운드 서비스 시작 및 화면간 이동에 대한 기능.
-                    백그라운드 서비스를 시작시키고 각 메뉴 버튼을 클릭하면 그 메뉴 기능에 해당하는 화면으로 이동.
+-작성자: 2017038023 반예린(DB, 백그라운드 서비스 관련 기능), 2015023025 배나영(UI, 화면 간 이동, 인터넷 연결 확인 기능)
+-해당 소스파일 정보: 백그라운드 서비스 시작, 화면간 이동, 인터넷 연결 확인에 대한 기능.
+                    백그라운드 서비스를 시작시키고 인터넷 연결을 확인함. 각 메뉴 버튼을 클릭하면 그 메뉴 기능에 해당하는 화면으로 이동.
                     사용자 정보가 필요한 기능의 경우에는 DB에 저장된 사용자 정보가 없으면 사용자 정보 설정을 요청하는 알림창을 띄우고
                     정보를 설정하기 전까지는 해당 기능을 사용하지 못하도록 막아 오동작을 예방.
 -구현 완료된 기능: 백그라운드 서비스 시작, 화면간 이동, DB 연동에 대한 기능
@@ -29,6 +29,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,7 +57,7 @@ class CheckNetwork {
             ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkRequest.Builder builder = new NetworkRequest.Builder();
 
-            connectivityManager.registerDefaultNetworkCallback(new ConnectivityManager.NetworkCallback(){
+            connectivityManager.registerNetworkCallback(builder.build(), new ConnectivityManager.NetworkCallback(){
                 @Override
                 public void onAvailable(@NonNull Network network) {
                     Variables.isNetworkConnected=1;
@@ -83,10 +85,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //네트워크 연결 테스트
+        CheckNetwork network = new CheckNetwork(getApplicationContext());
+        network.registerNetworkCallback();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.activity_main, null);
+
+        networkMethod(view);
 
         //백그라운드 서비스를 시작시킴
         Intent intent;
@@ -95,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
         mHelper=new UserInfoDBHelper(this);
         getuserInfo(); //DB에서 사용자 정보를 가져와 각 변수에 넣음
+
 
     }
 
@@ -238,9 +251,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void networkMethod(View v){
 
-        // 인터넷 연결 검사
-        CheckNetwork network = new CheckNetwork(getApplicationContext());
-        network.registerNetworkCallback();
+        Log.d("network state", Integer.toString(Variables.isNetworkConnected)); //변수에 들어간 값을 로그캣에 출력
 
         switch(Variables.isNetworkConnected){
             case 0:
