@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.474">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:gravity="center"
+            android:autoSizeTextType="uniform"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="메뉴" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickCheckField"
+            android:text="현장 확인" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickShowRecord"
+            android:text="화재기록 조회" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickSetting"
+            android:text="환경설정" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickReport"
+            android:text="신고하기" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickClosed"
+            android:text="종료" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
