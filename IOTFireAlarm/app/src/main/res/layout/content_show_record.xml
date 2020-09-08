@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:onClick="onClickRefresh"
         android:text="새로고침"
-        android:background="#A9A9F5"
+        android:background="@drawable/button_shape"
         android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
