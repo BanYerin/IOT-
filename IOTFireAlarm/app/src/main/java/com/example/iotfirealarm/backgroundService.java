@@ -132,8 +132,8 @@ public class backgroundService extends Service {
               String data = (String)msg.obj;
               //Toast.makeText(backgroundService.this, data, Toast.LENGTH_SHORT).show();
 
-              //URL을 통해 받아온 JSON을 파싱한 결과를 확인하기 위해 화면에 결과 띄워줌
-              Toast.makeText(getApplicationContext(),"온도값 : "+temp+"\n가스값 : "+gas,Toast.LENGTH_LONG).show();
+              //URL을 통해 받아온 JSON을 파싱한 결과를 확인하기 위해 화면에 결과 띄워줌(테스트용 코드)
+              //Toast.makeText(getApplicationContext(),"온도값 : "+temp+"\n가스값 : "+gas,Toast.LENGTH_LONG).show();
           }
       }
     };
@@ -194,7 +194,7 @@ public class backgroundService extends Service {
 
     //화재여부 판단 메소드: 측정한 온도값과 가스값이 화재라고 판단되는 특정 경계값을 넘으면 화재여부는 true, 그렇지 않으면 화재여부는 false
     public boolean fireDecision(){ //현재 화재판단 기준 경계값은 테스트 간편화를 위해 임시값으로 작성하였음.
-        if(temp >= 35 && gas >= 140){
+        if(temp >= 50 && gas >= 200){
             return true;
         }else{
             return false;
