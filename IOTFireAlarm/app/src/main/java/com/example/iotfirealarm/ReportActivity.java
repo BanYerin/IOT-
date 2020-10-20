@@ -73,14 +73,12 @@ public class ReportActivity extends AppCompatActivity implements AutoPermissions
 
     @Override
     public void onDenied(int i, String[] strings) {
-        //Toast.makeText(this,"permissions denied : "+strings.length,Toast.LENGTH_LONG).show();
-        Toast.makeText(this,"문자 전송 권한이 거부된 상태입니다.",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"문자 전송 권한이 거부된 상태입니다.",Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onGranted(int i, String[] strings) {
-        //Toast.makeText(this,"permissions granted : "+strings.length,Toast.LENGTH_LONG).show();
-        Toast.makeText(this,"문자 전송 권한이 허용된 상태입니다.",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"문자 전송 권한이 허용된 상태입니다.",Toast.LENGTH_LONG).show();
     }
 
     //위험 권한 부여에 대한 응답 처리

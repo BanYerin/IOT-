@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
 
     /*
     메소드 이름 : onClickSetting
-    메소드 기능 : 메인 페이지에서 환경설정 페이지로 이동한다
+    메소드 기능 : 메인 페이지에서 사용자 정보설정 페이지로 이동한다
      */
     public void onClickSetting(View v) {
 

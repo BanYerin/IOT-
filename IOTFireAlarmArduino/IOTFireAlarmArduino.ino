@@ -299,7 +299,7 @@ void sensingAndUpload(){
     gas = (float)analogRead(gasPin); //가스센서값 읽어옴
 
     //측정한 온도값과 가스값이 화재라고 판단되는 특정 경계값을 넘으면 화재여부는 true, 그렇지 않으면 화재여부는 false. 현재 화재판단 기준 경계값은 테스트 간편화를 위해 임시값으로 작성하였음.
-    if(temp >= 40 && gas >= 200){
+    if(temp >= 50 && gas >= 200){
       checkFire = true;
     }else{
       checkFire = false;

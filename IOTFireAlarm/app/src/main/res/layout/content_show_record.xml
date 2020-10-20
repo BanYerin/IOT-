@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#CED8F6"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ShowRecordActivity"
     tools:showIn="@layout/activity_show_record">
@@ -13,6 +14,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="화재 감지 기록"
+        android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.096"
@@ -27,6 +30,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:background="#FFFFFF"
+        android:textColor="#000000"
+        android:textStyle="bold"
 
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarDefaultDelayBeforeFade="500000"
@@ -50,6 +55,8 @@
                 android:layout_height="wrap_content"
 
                 android:background="#A9E2F3"
+                android:textColor="#000000"
+                android:textStyle="bold"
 
                 android:text="            감지시각                       온도값       가스값" />
         </LinearLayout>
@@ -61,6 +68,9 @@
         android:layout_height="wrap_content"
         android:onClick="onClickRefresh"
         android:text="새로고침"
+        android:background="@drawable/button_shape"
+        android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"

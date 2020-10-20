@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#CED8F6"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
@@ -26,6 +27,8 @@
             android:autoSizeTextType="uniform"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:textColor="#000000"
+            android:textStyle="bold"
             android:text="메뉴" />
 
         <Button
@@ -34,6 +37,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickCheckField"
+            android:background="@drawable/button_shape"
+            android:textStyle="bold"
             android:text="현장 확인" />
 
         <Button
@@ -42,15 +47,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickShowRecord"
+            android:background="@drawable/button_shape"
+            android:textStyle="bold"
             android:text="화재기록 조회" />
 
         <Button
             android:id="@+id/button3"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:onClick="onClickSetting"
-            android:text="환경설정" />
+            android:background="@drawable/button_shape"
+            android:textStyle="bold"
+            android:text="사용자 정보설정" />
 
         <Button
             android:id="@+id/button4"
@@ -58,6 +67,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickReport"
+            android:background="@drawable/button_shape"
+            android:textStyle="bold"
             android:text="신고하기" />
 
         <Button
@@ -66,6 +77,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickClosed"
+            android:background="@drawable/button_shape"
+            android:textStyle="bold"
             android:text="종료" />
 
     </LinearLayout>
